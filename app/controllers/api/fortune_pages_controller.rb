@@ -4,8 +4,8 @@ class Api::FortunePagesController < ApplicationController
                   "You're really rich but you ALWAYS have a butt rash",
                   "You're poor but have a great smile",
                   "You're going to live a long healthy life filled with love and happiness but you have to mow the grass everyday"
-                  ]
-    @fortune = fortunes.sample
+                ]
+    @fortune = fortunes[rand(fortunes.length)]
     render 'fortune_view.json.jb'
 
   end
@@ -14,7 +14,9 @@ class Api::FortunePagesController < ApplicationController
     num = (1..60).to_a
     @random = []
     6.times do
-      @random << num.sample
+      @random << num.shuffle.pop
+      #or
+      #@random << num.sample(6)
     end
 
     render 'random_view.json.jb'
@@ -22,7 +24,8 @@ class Api::FortunePagesController < ApplicationController
   end
 
   def refresh_action
-    @refresh = 
+    @count = 0
+    @count += 1 
     render 'refresh_view.json.jb'
   end
 
